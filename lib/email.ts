@@ -10,6 +10,7 @@ function getTransporter() {
   const port = Number(process.env.ZOHO_SMTP_PORT ?? 587)
   const user = process.env.ZOHO_SMTP_USER
   const pass = process.env.ZOHO_SMTP_PASS
+  const fromEnv = process.env.ZOHO_SMTP_FROM
 
   if (!host || !user || !pass) return null
 
@@ -37,7 +38,8 @@ type SendArgs = {
  */
 export async function sendEmail({ to, subject, text, html, replyTo }: SendArgs) {
   const t = getTransporter()
-  const from = process.env.ZOHO_SMTP_USER
+  // Prefer an explicit FROM address, fall back to SMTP user if it's an address
+  const from = process.env.ZOHO_SMTP_FROM ?? process.env.ZOHO_SMTP_USER
 
   if (!t || !from) {
     console.log("[v0] SMTP not configured; skipping send to", to)

@@ -12,4 +12,16 @@ __v0_jsx-dev-runtime.ts
 # Common ignores
 node_modules
 .next/
+.DS_Store# Editor / OS
+.vs/
+.vscode/
+Thumbs.db
 .DS_Store
+
+# Node
+node_modules/
+package-lock.json
+
+# Local env
+.env
+.env.local
